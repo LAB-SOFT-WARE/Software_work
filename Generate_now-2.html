@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Workout Plan</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Personalized Workout Plan</h1>
+    </header>
+
+    <main>
+        <form id="workout-form">
+            <h2>Enter Your Preferences</h2>
+            <div>
+                <label for="fitness-level">Fitness Level:</label>
+                <select id="fitness-level">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            <div>
+                <label for="goal">Fitness Goal:</label>
+                <select id="goal">
+                    <option value="weight-loss">Weight Loss</option>
+                    <option value="muscle-gain">Muscle Gain</option>
+                    <option value="general-fitness">General Fitness</option>
+                </select>
+            </div>
+            <div>
+                <label for="duration">Workout Duration (minutes):</label>
+                <input type="number" id="duration" min="10" max="120" step="10" value="30">
+            </div>
+            <div>
+                <label for="days-per-week">Days Per Week:</label>
+                <input type="number" id="days-per-week" min="1" max="7" value="3">
+            </div>
+            <button type="submit">Generate Plan</button>
+        </form>
+
+        <div id="workout-plan">
+            <!-- Workout plan will be displayed here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Personalized Workout Plan. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to generate a personalized workout plan
+        function generateWorkoutPlan() {
+            // Get user input
+            var fitnessLevel = document.getElementById("fitness-level").value;
+            var goal = document.getElementById("goal").value;
+            var duration = parseInt(document.getElementById("duration").value);
+            var daysPerWeek = parseInt(document.getElementById("days-per-week").value);
+
+            // Define workout plan variables
+            var workoutPlan = [];
+
+            // Logic to generate workout plan based on user input
+            // Example conditions, you can adjust these based on your specific requirements
+            for (var i = 0; i < daysPerWeek; i++) {
+                var workoutDay = "Day " + (i + 1) + ": ";
+                var exercises = [];
+
+                // Determine exercises based on fitness level and goal
+                if (fitnessLevel === "beginner") {
+                    exercises.push("Stretching");
+                    exercises.push("Walking");
+                    // Add more beginner exercises as needed
+                } else if (fitnessLevel === "intermediate") {
+                    exercises.push("Jogging");
+                    exercises.push("Bodyweight Squats");
+                    // Add more intermediate exercises as needed
+                } else if (fitnessLevel === "advanced") {
+                    exercises.push("Running");
+                    exercises.push("Weightlifting");
+                    // Add more advanced exercises as needed
+                }
+
+                // Modify exercises based on goal
+                if (goal === "weight-loss") {
+                    // Include more cardio-focused exercises
+                    exercises.push("Jumping Jacks");
+                } else if (goal === "muscle-gain") {
+                    // Include more strength training exercises
+                    exercises.push("Push-ups");
+                    exercises.push("Pull-ups");
+                }
+
+                // Add exercises to the workout plan
+                workoutPlan.push(workoutDay + exercises.join(", "));
+            }
+
+            // Display generated workout plan
+            displayWorkoutPlan(workoutPlan);
+        }
+
+        // Function to display the generated workout plan
+        function displayWorkoutPlan(workoutPlan) {
+            var workoutPlanDisplay = document.getElementById("workout-plan");
+            workoutPlanDisplay.innerHTML = "";
+            workoutPlan.forEach(function (workoutDay) {
+                var workoutDayElement = document.createElement("p");
+                workoutDayElement.textContent = workoutDay;
+                workoutPlanDisplay.appendChild(workoutDayElement);
+            });
+        }
+
+        // Event listener for form submission
+        document.getElementById("workout-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form submission
+            generateWorkoutPlan(); // Generate workout plan
+        });
+    </script>
+</body>
+</html>
